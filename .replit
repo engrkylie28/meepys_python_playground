@@ -1,3 +1,12 @@
-modules = ["python-3.12"]
-[nix]
-channel = "stable-24_05"
+import pygame
+
+# Initialize pygame mixer for handling sound and music
+pygame.mixer.init()
+
+# --- Background Music Setup ---
+
+# Load the background music file
+pygame.mixer.music.load('spider-man 2099.mp3')  # Replace with the path to your music file
+
+# Play the background music indefinitely (-1 means loop forever)
+pygame.mixer.music.play(-1)

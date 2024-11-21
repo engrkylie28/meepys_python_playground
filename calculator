@@ -1,0 +1,108 @@
+import inquirer
+from time import sleep
+from os import system
+
+def increase_by_one(num):
+  return num + 1
+
+def decrease_by_one(num):
+  return num - 1
+
+def add(num1, num2):
+  answer = num1
+  remaining = num2
+  while remaining > 0:
+    answer = increase_by_one(answer)
+    remaining = decrease_by_one(remaining)
+  return answer
+
+def subtract(num1, num2):
+  answer = num1
+  remaining = num2
+  while remaining > 0:
+    answer = decrease_by_one(answer)
+    remaining = decrease_by_one(remaining)
+  return answer
+
+def multiply(num1, num2):
+  answer = 0
+  repeat = num2
+  while repeat > 0:
+    answer = add(answer, num1)
+    repeat = decrease_by_one(repeat)
+  return answer
+
+def divide(num1, num2):
+  answer = 0
+  remaining = num1
+  while remaining > num2:
+    remaining = subtract(remaining, num2)
+    answer = increase_by_one(answer)
+  return answer
+
+def modulo(num1, num2):
+  answer = num1
+  while answer > num2:
+    answer = subtract(answer, num2)
+  return answer
+
+def square(num1):
+  answer = 0
+  repeat = num1
+  while repeat > 0:
+    answer = add(answer, num1)
+    repeat = decrease_by_one(repeat)
+  return answer
+
+def sqrt(num):
+  remaining = num
+  repeat = 2
+  while repeat > 0:
+    remaining = divide(remaining, 2)
+    repeat = decrease_by_one(repeat)
+pass
+
+num1 = int(input("Please input your first number."))
+num2 = int(input("Please input your second number. (If square please press 0)"))
+
+questions = [inquirer.List(
+            'operation',
+            message = "What operation would you like to perform",
+            choices = ['Addition', 'Subtraction', 'Multiplication', 'Division', 'Modulo', 'Square'])]
+answers = inquirer.prompt(questions)
+
+if answers["operation"] == "Addition":
+  print(f" The sum of {num1} + {num2} equals to {add(num1, num2)}")
+  sleep(1)
+  input("Press enter to clear out.")
+  system("clear")
+
+if answers["operation"] == "Subtraction":
+  print(f" The sum of {num1} - {num2} equals to {subtract(num1, num2)}")
+  sleep(1)
+  input("Press enter to clear out.")
+  system("clear")
+
+if answers["operation"] == "Multiplication":
+  print(f" The sum of {num1} * {num2} equals to {multiply(num1, num2)}")
+  sleep(1)
+  input("Press enter to clear out.")
+  system("clear")
+
+if answers["operation"] == "Division":
+  print(f" The sum of {num1} / {num2} equals to {divide(num1, num2)}")
+  sleep(1)
+  input("Press enter to clear out.")
+  system("clear")
+
+if answers["operation"] == "Modulo":
+  print(f" The sum of {num1} % {num2} equals to {modulo(num1, num2)}")
+  sleep(1)
+  input("Press enter to clear out.")
+  system("clear")
+
+if answers["operation"] == "Square":
+  print(f" The square of {num1} equals to {square(num1)}")
+  sleep(1)
+  input("Press enter to clear out.")
+  system("clear")

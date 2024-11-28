@@ -1,0 +1,56 @@
+import pygame
+import sys
+
+# Initializing
+pygame.init()
+screen = pygame.display.set_mode((800 , 600))
+pygame.display.set_caption("It will never hit the corner.")
+clock = pygame.time.Clock()
+
+# DVD Logo !!
+dvd = pygame.image.load("unit 4/images/DVDLOGO-2.png")
+dvd = pygame.transform.scale(dvd, (100,50))
+
+# Rect
+logo_rect = dvd.get_rect(topleft = (20,300))
+speed = 1
+
+# Functions
+def dvdlogo_draw():
+    screen.blit(dvd, logo_rect)
+
+def dvdlogo_move():
+    logo_rect.x += speed
+    logo_rect.y += speed
+
+def dvdlogo_bounce():
+    global speed
+    logo_rect.x += speed
+    logo_rect.y += speed
+    screen.blit(dvd, logo_rect)
+    if logo_rect.right > 800:
+        speed *= -1
+    elif logo_rect.left < 0:
+        speed *= -1
+    elif logo_rect.bottom > 600:
+        speed *= -1
+    elif logo_rect.top < 0:
+        speed *= -1
+
+
+# Main loop
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    logo_rect.x += speed
+    logo_rect.y += speed
+
+    dvdlogo_move()
+    dvdlogo_bounce()
+    screen.fill((000,000,00))
+    dvdlogo_draw()
+    pygame.display.update()
+    clock.tick(60)

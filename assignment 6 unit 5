@@ -1,0 +1,62 @@
+import pygame, sys
+
+# Initialize
+pygame.init()
+screen = pygame.display.set_mode((80,80))
+
+# Load Images
+front = pygame.image.load("")
+
+# [Question 1] Load the remaining three images, right, back, left
+back = pygame.image.load("")
+
+right = pygame.image.load("unit 4/images/miguelrightside.png")
+
+left = pygame.image.load("unit 4/images/miguelleftside.png")
+
+# [Question 2] Create a list named image_list with 4 elements, front, right, back, and left
+
+image_list = [front, back, right, left]
+
+# [Question 3] Initiate a variable called index with a value of 0
+index = 0
+
+def draw_char():
+  # [Question 4] In one to two sentences, explain the following line. Your explanation must include what image_list[index] means and, more specifically, what "index" does here
+  screen.blit(image_list[index], (0,0))
+  # Explanation:
+
+while True:
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      pygame.quit()
+      sys.exit()
+
+    # The following line checks to see if the user presses any key down
+    if event.type == pygame.KEYDOWN:
+      # [Question 4] Increase the index by 1
+
+
+  # Set background colour
+        screen.fill((173,216,230))
+
+  # [Question 5] If the index is larger than the length of the list, set the index to 0. Explain why this needs to be done.
+  if index >= len(image_list):
+    index = 0
+  # Explanation:
+
+
+  draw_char()
+  pygame.display.update()
+
+
+
+
+#"""
+# Marking Scheme: [  /5]
+# [ /1] Question 1
+# [ /1] Question 2
+# [ /1] Question 3
+# [ /1] Question 4
+# [ /1] Question 5
+#"""

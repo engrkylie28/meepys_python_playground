@@ -1,0 +1,33 @@
+# [Question 1] # Teletubbies say "Hello"! Loop through the list and have each teletubby say "Hello!"
+# Sample output: "Tinky-Winky says 'Hello!'"
+# Hint: Use an f-string
+
+teletubbies_list = ["Tinky-Winky", "Dipsy", "Laa-Laa", "Po", "Sun-Baby-thingy"]
+for teletubbs in teletubbies_list:
+    print(f'{teletubbs} says "Hiii !!"')
+
+# [Question 2]  Add up all the numbers.
+
+num_list = [2,90,4,62,33,42]
+newnum = []
+for num in num_list:
+      newnum.append(num)
+      total = sum(num_list)
+print(newnum)
+
+# [Question 3]  Find the average of following student marks.
+marks = [90, 88, 72, 80, 62, 79, 86, 4]
+
+
+"""
+Marking Scheme: [  /6]
+[ /2] Question 1
+      - loop
+      - result
+[ /2] Question 2
+      - loop
+      - result
+[ /2] Question 3
+      - loop
+      - result
+"""

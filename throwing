@@ -3,7 +3,7 @@ import sys
 from pygame.locals import QUIT
 from random import randint
 
-pygame.mixer.init()
+# sadly i couldnt figure it out today
 
 # initializing !!
 pygame.init()
@@ -35,20 +35,23 @@ milesright = pygame.transform.scale(milesright, (280, 190))
 migburger = pygame.image.load("unit 4/images/miggyburger copy.png")
 migburger = pygame.transform.scale(migburger, (75, 75))
 
+# trash can
+trash = pygame.image.load("unit 4/images/trashcan.png")
+trash = pygame.transform.scale(trash, (120, 95))
+
 # burger dead nor alive
 burger_alive = False
+
+# trash dead nor alive
+trash_alive = False
 
 # Rect
 miles_rect = milesmorales.get_rect(center = (400,300))
 miles_speed = 15
 
 migburger_rect = migburger.get_rect()
-burger_speed_x = 2
-burger_speed_y = 2
 
-# music
-def burger_hit():
-    pygame.mixer.music.load('music or audio/hamburger.mp3')
+trash_rect = trash.get_rect()
 
 # Functions 4 Miles Morales
 def miles_draw():
@@ -92,57 +95,115 @@ def burger_draw():
    screen.blit(migburger, migburger_rect)
 
 def burger_born():
-    location = randint(0,4)
+    location_burger = randint(0,3)
     # right
-    if location == 0:
+    if location_burger == 0:
       migburger_rect.x = 0
       migburger_rect.y = randint(0,750)
 
     # left
-    if location == 1:
+    if location_burger == 1:
       migburger_rect.x = 700
       migburger_rect.y = randint(0,750)
 
     # up
-    if location == 2:
+    if location_burger == 2:
        migburger_rect.x = randint(0,550)
        migburger_rect.y = 0
 
     # down
-    if location == 3:
+    if location_burger == 3:
        migburger_rect.x = randint(0,550)
        migburger_rect.y = 510
 
-    return location
+    return location_burger
 
 def burger_move():
     # right
-    if location == 0:
-        migburger_rect.x += burger_speed_x
-        migburger_rect.y += burger_speed_y
+    if location_burger == 0:
+        migburger_rect.x += 2
+        migburger_rect.y = burger_speed_y
 
     # left
-    if location == 1:
-        migburger_rect.x -= burger_speed_x
-        migburger_rect.y += burger_speed_y
+    if location_burger == 1:
+        migburger_rect.x -= 2
+        migburger_rect.y = burger_speed_y
 
     # up
-    if location == 2:
-        migburger_rect.y += burger_speed_y
-        migburger_rect.x += burger_speed_x
+    if location_burger == 2:
+        migburger_rect.y += 2
+        migburger_rect.x -= burger_speed_x
 
     # down
-    if location == 3:
-        migburger_rect.y -= burger_speed_y
-        migburger_rect.x += burger_speed_x
-       
+    if location_burger == 3:
+       migburger_rect.y -= 2
+       migburger_rect.x += burger_speed_x
+
 def check_burger():
-    if migburger_rect.bottom > 690 or migburger_rect.top < -100:
+    if migburger_rect.bottom > 750 or migburger_rect.top < -100:
         return False
-    elif migburger_rect.right > 890 or migburger_rect.left < -100:
+    elif migburger_rect.right > 950 or migburger_rect.left < -100:
         return False
     else:
         return True
+    
+# Trash
+def trash_draw():
+   screen.blit(trash, trash_rect)
+
+def trash_born():
+    location_trash = randint(0,3)
+    # right
+    if location_trash == 0:
+      trash_rect.x = 0
+      trash_rect.y = randint(0,750)
+
+    # left
+    if location_trash == 1:
+      trash_rect.x = 700
+      trash_rect.y = randint(0,750)
+
+    # up
+    if location_trash == 2:
+       trash_rect.x = randint(0,550)
+       trash_rect.y = 0
+
+    # down
+    if location_trash == 3:
+       trash_rect.x = randint(0,550)
+       trash_rect.y = 510
+
+    return location_trash
+
+def trash_move():
+    # right
+    if location_trash == 0:
+        trash_rect.x += 2
+        trash_rect.y = trash_speed_y
+
+    # left
+    if location_trash == 1:
+        trash_rect.x -= 2
+        trash_rect.y = trash_speed_y
+
+    # up
+    if location_trash == 2:
+        trash_rect.y += 2
+        trash_rect.x -= trash_speed_x
+
+    # down
+    if location_trash == 3:
+       trash_rect.y -= 2
+       trash_rect.x += trash_speed_x
+
+def check_trash():
+    if trash_rect.bottom > 750 or trash_rect.top < -100:
+        return False
+    elif trash_rect.right > 950 or trash_rect.left < -100:
+        return False
+    else:
+        return True
+
 
 # Functions for BG
 def background():
@@ -161,23 +222,38 @@ while True:
 
 # colliding like stars wowieieieie
     if miles_rect.colliderect(migburger_rect):
-       burger_hit()
        print("Miles got HIT!! BAM!")
        print("Skill issue tbh")
+    
+    if miles_rect.colliderect(trash_rect):
+       print("BAM!")
+       print("bros dead")
+
+# make trash move
+    if trash_alive == False:
+        location_trash = trash_born()
+        trash_speed_x = randint (-2,2)
+        trash_speed_y = randint(-2,2)
+        trash_alive = True
+    trash_move()
+    trash_alive = check_trash()
 
 # make burger move
     if burger_alive == False:
-        location = burger_born()
-        burger_speed_x = randint(-2,2)
+        location_burger = burger_born()
+        burger_speed_x = randint (-2,2)
         burger_speed_y = randint(-2,2)
         burger_alive = True
     burger_move()
     burger_alive = check_burger()
 
 # From the Screen
+    burger_move()
+    trash_move()
     screen.fill((221,157,139))
     background()
     miles_draw()
     burger_draw()
+    trash_draw()
     pygame.display.update()
     clock.tick(60)
